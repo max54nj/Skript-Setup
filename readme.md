@@ -1,8 +1,9 @@
 # Basic Skript Setup
 
-> **Author**: Max54nj \
-> **Sponsor**: [NrwPlay](https://nrwplay.de/) \
-> **Website**: [max54nj.de](https://max54nj.de)
+# Instalation
+> 1. Unzip the zip and put it in `plugins/Skript/scripts/`
+> 2. Install all requirements.
+> 3. Restart your Minecraft Server. 
 
 # Requirements
 
