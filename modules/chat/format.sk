@@ -1,0 +1,57 @@
+on chat:
+	set {_prefix} to player's prefix
+	set {_suffix} to player's suffix
+	if player has permission "chat.send":
+		if {chatDisabled} is not set:
+			if player has permission "chat.send.color":
+				if {_prefix} is "":
+					if {_suffix} is "":
+						if player has permission "team":
+							set chat format to "&f%player's displayname%&f: &f%colored message%"
+						else:
+							set chat format to "&f%player's displayname%&f: &7%colored message%"
+					else:
+						if player has permission "team":
+							set chat format to "&f%player's displayname%&f%colored {_suffix}%&f: &f%colored message%"
+						else:
+							set chat format to "&f%player's displayname%&f%colored {_suffix}%&f: &7%colored message%"
+				else:
+					if {_suffix} is "":
+						if player has permission "team":						
+							set chat format to "&f%colored {_prefix}%&f%player's displayname%&f: &f%colored message%"
+						else:
+							set chat format to "&f%colored {_prefix}%&f%player's displayname%&f: &7%colored message%"
+					else:
+						if player has permission "team":
+							set chat format to "&f%colored {_prefix}%&f%player's displayname%&f%colored {_suffix}%&f: &f%colored message%"
+						else:
+							set chat format to "&f%colored {_prefix}%&f%player's displayname%&f%colored {_suffix}%&f: &7%colored message%"
+			else:		
+				if {_prefix} is "":
+					if {_suffix} is "":
+						if player has permission "team":
+							set chat format to "&f%player's displayname%&f: &f%message%"
+						else:
+							set chat format to "&f%player's displayname%&f: &7%message%"
+					else:
+						if player has permission "team":
+							set chat format to "&f%player's displayname%&f%colored {_suffix}%&f: &f%message%"
+						else:
+							set chat format to "&f%player's displayname%&f%colored {_suffix}%&f: &7%message%"
+				else:
+					if {_suffix} is "":
+						if player has permission "team":
+							set chat format to "&f%colored {_prefix}%&f%player's displayname%&f: &f%message%"
+						else:
+							set chat format to "&f%colored {_prefix}%&f%player's displayname%&f: &7%message%"
+					else:
+						if player has permission "team":
+							set chat format to "&f%colored {_prefix}%&f%player's displayname%&f%colored {_suffix}%&f: &f%message%"
+						else:
+							set chat format to "&f%colored {_prefix}%&f%player's displayname%&f%colored {_suffix}%&f: &7%message%"
+		else:
+			send error("&cDer Chat ist deaktiviert!")
+	else:
+		send error("&cDu bist nicht berechtigt im Chat zu schreiben!")
+		
+		

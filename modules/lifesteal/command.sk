@@ -1,0 +1,184 @@
+#-----------------------------------------------------------------------#
+#	>>> Lifesteal <<<
+#-----------------------------------------------------------------------#
+
+
+on tab complete for "heart":
+	set tab completions for position 1 to "give", "withdraw", "reset" and "set"
+	if tab arg-1 is "give":
+		set tab completions for position 2 to "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18" and "19"
+		set tab completions for position 3 to all players
+	if tab arg-1 is "withdraw":
+		set tab completions for position 2 to "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18" and "19"
+		set tab completions for position 3 to all players
+	if tab arg-1 is "reset":
+		set tab completions for position 2 to all players
+	if tab arg-1 is "set":
+		set tab completions for position 2 to "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19" and "20"
+		set tab completions for position 3 to all players
+		
+		
+function heart():: item:
+	set {_heart} to 1 red dye named "§c§lheart" with lore "&7Rightclick to redeem."
+	set tag "tag;heart" of nbt compound of {_heart} to "1"
+	return {_heart}
+	
+command /heart [<text>] [<text>] [<text>]:
+	permission: lifesteal.command.heart
+	trigger:
+		if arg 1 is set:
+			if arg 1 is "set":
+				if player has permission "lifesteal.command.heart.set":
+					if arg-2 is set:
+						if arg-3 is set:
+							if player has permission "lifesteal.command.heart.set.other":
+								set max health of (arg-3 parsed as player) to (arg-2 parsed as number)
+								if json file "plugins/SkJson/jsons/hearts/%player's uuid%.json" does not exist:
+									new json file "plugins/SkJson/jsons/hearts/%player's uuid%.json"
+									set {_a} to json from text "{'hearts': %(arg-2 parsed as number)%}"
+									write {_a} to json file "plugins/SkJson/jsons/hearts/%player's uuid%.json"
+									set {_1} to json from file "plugins/SkJson/jsons/hearts/%player's uuid%.json"
+									set {_hearts} to value "hearts" of {_1}
+									send prefix("Successfully set &a%arg-3%'s&7 health to &a%arg-2%&7.")
+								else:
+									set {_1} to json from file "plugins/SkJson/jsons/hearts/%player's uuid%.json"
+									set {_hearts} to value "hearts" of {_1}
+									set {_a} to json from text "{'hearts': %(arg-2 parsed as number)%}"
+									write {_a} to json file "plugins/SkJson/jsons/hearts/%player's uuid%.json"
+									send prefix("Successfully set &a%arg-3%'s&7 health to &a%arg-2%&7.")
+							else:
+								send perm()
+						else:
+							set max health of player to (arg-2 parsed as number)
+							if json file "plugins/SkJson/jsons/hearts/%player's uuid%.json" does not exist:
+								new json file "plugins/SkJson/jsons/hearts/%player's uuid%.json"
+								set {_a} to json from text "{'hearts': %(arg-2 parsed as number)%}"
+								write {_a} to json file "plugins/SkJson/jsons/hearts/%player's uuid%.json"
+								set {_1} to json from file "plugins/SkJson/jsons/hearts/%player's uuid%.json"
+								set {_hearts} to value "hearts" of {_1}
+								send prefix("Successfully set your health to &a%arg-2%&7.")
+							else:
+								set {_1} to json from file "plugins/SkJson/jsons/hearts/%player's uuid%.json"
+								set {_hearts} to value "hearts" of {_1}
+								set {_a} to json from text "{'hearts': %(arg-2 parsed as number)%}"
+								write {_a} to json file "plugins/SkJson/jsons/hearts/%player's uuid%.json"
+								send prefix("Successfully set your health to &a%arg-2%&7.")
+					else:
+						send prefix("Please specify a number.")
+				else:
+					send perm()
+				stop
+			if arg 1 is "reset":
+				if player has permission "lifesteal.command.heart.reset":
+					if arg-2 is set:
+						if player has permission "lifesteal.command.heart.reset.other"
+							if (arg-2 parsed as player) is a player:
+							set max health of (arg-2 parsed as player) to 10
+							if json file "plugins/SkJson/jsons/hearts/%(arg-2 parsed as player)'s uuid%.json" does not exist:
+								new json file "plugins/SkJson/jsons/hearts/%(arg-2 parsed as player)'s uuid%.json"
+								set {_a} to json from text "{'hearts': 10}"
+								write {_a} to json file "plugins/SkJson/jsons/hearts/%(arg-2 parsed as player)'s uuid%.json"
+								set {_1} to json from file "plugins/SkJson/jsons/hearts/%(arg-2 parsed as player)'s uuid%.json"
+								set {_hearts} to value "hearts" of {_1}
+								send prefix("Successfully reseted &a%arg-3%'s&7 health.")
+							else:
+								set {_1} to json from file "plugins/SkJson/jsons/hearts/%(arg-2 parsed as player)'s uuid%.json"
+								set {_hearts} to value "hearts" of {_1}
+								set {_a} to json from text "{'hearts': 10}"
+								write {_a} to json file "plugins/SkJson/jsons/hearts/%(arg-2 parsed as player)'s uuid%.json"
+								send prefix("Successfully reseted &a%arg-3%'s&7 health.")
+						else:
+							send perm()
+					else:
+						set max health of player to 10
+						if json file "plugins/SkJson/jsons/hearts/%player's uuid%.json" does not exist:
+							new json file "plugins/SkJson/jsons/hearts/%player's uuid%.json"
+							set {_a} to json from text "{'hearts': 10}"
+							write {_a} to json file "plugins/SkJson/jsons/hearts/%player's uuid%.json"
+							set {_1} to json from file "plugins/SkJson/jsons/hearts/%player's uuid%.json"
+							set {_hearts} to value "hearts" of {_1}
+							send prefix("Successfully reseted your health.")
+						else:
+							set {_1} to json from file "plugins/SkJson/jsons/hearts/%player's uuid%.json"
+							set {_hearts} to value "hearts" of {_1}
+							set {_a} to json from text "{'hearts': 10}"
+							write {_a} to json file "plugins/SkJson/jsons/hearts/%player's uuid%.json"
+							send prefix("Successfully reseted your health.")
+				else:	
+					send error("Unknown player.")
+				stop
+			if arg 1 is "give":
+				if player has permission "lifesteal.command.give":
+					if arg 3 is set:
+						if player has permission "lifesteal.command.give.other":
+							if (arg-3 parsed as player) is a player:
+								give (arg-2 parsed as number) of heart() to (arg-3 parsed as player)
+								send prefix("&a%arg-3% &7has successfully been given &a%arg-2%&7 hearts.")
+							else:
+								send error("Unknown player.")
+						else:
+							send perm("You successfully gave yourself &a%arg-2%&7 hearts")
+					else:
+						give (arg-2 parsed as number) of heart() to player
+						send prefix()
+				else:
+					send perm()
+				stop
+			if arg 1 is "withdraw":
+				if player has permission "lifesteal.command.withdraw":
+					if arg-3 is set:
+						if (arg-3 parsed as player) is a player:
+							if arg 2 is set:
+								if (arg-3 parsed as player)'s max health > (arg-2 parsed as number):
+									loop (arg-2 parsed as number) times:
+										set {_health} to max health of (arg-3 parsed as player) - 1
+										set max health of (arg-3 parsed as player) to {_health}
+										set {_hjson} to json from text "{'hearts': %{_health}%}"
+										write {_hjson} to json file "plugins/SkJson/jsons/hearts/%(arg-3 parsed as player)'s uuid%.json"
+										give or drop heart() to (arg-3 parsed as player)
+									send prefix("You successfully withdrew &a%arg-2%&7 hearts from &a%arg-3%&7.")
+								else:
+									send error("You don't have enough hearts.")
+								
+							else:
+								if (arg-3 parsed as player)'s max health > 1:
+									set {_health} to max health of (arg-3 parsed as player) - 1
+									set max health of (arg-3 parsed as player) to {_health}
+									set {_hjson} to json from text "{'hearts': %{_health}%}"
+									write {_hjson} to json file "plugins/SkJson/jsons/hearts/%(arg-3 parsed as player)'s uuid%.json" 
+									give or drop heart() to (arg-3 parsed as player)
+									send prefix("You successfully withdrew &a1&7 heart from &a%arg-3%&7.")
+								else:
+									send error("You don't have enough hearts.")
+						else:
+							send error("Unknown player.")
+					else:
+						if arg 2 is set:
+							if player's max health > (arg-2 parsed as number):
+								loop (arg-2 parsed as number) times:
+									set {_health} to max health of player - 1
+									set max health of player to {_health}
+									set {_hjson} to json from text "{'hearts': %{_health}%}"
+									write {_hjson} to json file "plugins/SkJson/jsons/hearts/%player's uuid%.json"
+									give or drop heart() to player
+								send prefix("You successfully withdrew &a%arg-2%&7 hearts from you.")
+							else:
+								send error("You don't have enough hearts.")
+							
+						else:
+							if player's max health > 1:
+								set {_health} to max health of player - 1
+								set max health of player to {_health}
+								set {_hjson} to json from text "{'hearts': %{_health}%}"
+								write {_hjson} to json file "plugins/SkJson/jsons/hearts/%player's uuid%.json" 
+								give or drop heart() to player
+								send prefix("You successfully withdrew &a1&7 heart from you.")
+							else:
+								send error("You don't have enough hearts.")
+				else:
+					send perm()
+			else:
+				send error("Unknown argument.")
+				
+		else:
+			send error("Please specify an argument.")

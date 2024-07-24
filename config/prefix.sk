@@ -1,0 +1,33 @@
+options:
+
+#---------------------------------------------------------------------------------#
+#! Prefix CONFIG
+#---------------------------------------------------------------------------------#
+
+	#? Main Prefix
+	p.main: &cSystem &8> &7
+	
+	#? Error Prefix
+	p.error: &cError! &8> &7
+	
+	#? Alert Prefix
+	p.alert: &4⚠&c
+	
+
+
+	
+	
+#---------------------------------------------------------------------------------#
+	
+function prefix(msg: text)::text:
+	return "{@p.main} %formatted ({_msg})%"
+
+		
+function error(msg: text)::text:
+	return "{@p.error} %formatted (colored {_msg})%"
+	
+function alert(msg: text)::text:
+	return "&f%nl%{@p.alert} %formatted (colored {_msg})%%nl%&f"
+		
+function perm()::text:
+	return "{@p.error} %permMsg()%"

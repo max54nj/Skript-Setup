@@ -1,0 +1,7 @@
+command /togglechat:
+	permission: chat.toggle
+	trigger:
+		if {chatDisabled} is true:
+			delete {chatDisabled}
+		else:
+			set {chatDisabled} to true
