@@ -12,17 +12,18 @@
 -   Permission system like [Luckperms](https://luckperms.net/download)
 -   [Skbee](https://github.com/ShaneBeee/SkBee)
 -   [skript-placeholders](https://github.com/APickledWalrus/skript-placeholders)
-
+-   [PlaveholderAPI](https://github.com/PlaceholderAPI/PlaceholderAPI)
 
 # Modules
 
 ## Chat
 
 ### Requirements
--   [Vault](https://www.spigotmc.org/resources/vault.34315/)
 
+-   [Vault](https://www.spigotmc.org/resources/vault.34315/)
 
 ## Lifesteal
 
 ### Requirements
+
 -   [SkJson](https://github.com/cooffeeRequired/skJson)

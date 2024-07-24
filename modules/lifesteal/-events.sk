@@ -36,7 +36,7 @@ on right click:
 		if {_hearts} <= 19:
 			remove 1 of heart() from player
 			add 1 to {_hearts}
-			set player's max health to {_hearts}
+			set player's max health to {hearts}
 			set {_b} to json from text "{'hearts': %{_hearts}%}"
 			write {_b} to json file "plugins/SkJson/jsons/hearts/%player's uuid%.json"
 		else:
